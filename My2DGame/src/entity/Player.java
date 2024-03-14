@@ -23,6 +23,9 @@ public class Player extends Entity {
 	public final int screenX;
 	public final int screenY;
 	
+	int hasKey = 0;
+	int keyFlag = 0;
+	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		
 		this.gp = gp;
@@ -34,6 +37,8 @@ public class Player extends Entity {
 		solidArea = new Rectangle();
 		solidArea.x = gp.tileSize / 6;
 		solidArea.y = gp.tileSize / 3;
+		solidAreaDefaultX = solidArea.x;
+		solidAreaDefaultY = solidArea.y;
 		solidArea.width = gp.tileSize * 2 / 3;
 		solidArea.height = gp.tileSize * 2 / 3;
 		
@@ -89,6 +94,10 @@ public class Player extends Entity {
 			// CHECK TILE COLLISION
 			collisionOn = false;
 			gp.cChecker.checkTile(this);
+			
+			// CHECK OBJECT COLLISION
+			int objIndex = gp.cChecker.checkObject(this, true);
+			pickUpobject(objIndex);
 			
 			// IF COLLISION IS FALSE, PLAYER CAN MOVE
 			if(collisionOn == false) {
@@ -146,8 +155,34 @@ public class Player extends Entity {
 		if(speedCnt >= 10) {
 			speedCnt = 10;
 		}
-		
 	}
+	public void pickUpobject(int i) {
+		
+		if(i != 999) {
+			String objectName = gp.obj[i].name;
+			
+			switch(objectName) {
+			case "Key":
+				hasKey++;
+				gp.obj[i] = null;
+				System.out.println("Key : " + hasKey);
+				break;
+			case "Door":
+				keyFlag += 1;
+				if(hasKey > 0) {
+					gp.obj[i] = null;
+					hasKey--;
+					keyFlag = 200;
+				}
+				if(keyFlag >= 100) {
+					System.out.println("Key : " + hasKey);
+					keyFlag = keyFlag - 100 < 0 ? 0 : keyFlag - 100;
+				}
+				break;
+			}
+		}
+	}
+	
 	public void draw(Graphics2D g2) {
 		
 //		g2.setColor(Color.white);
