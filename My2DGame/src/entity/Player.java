@@ -19,6 +19,7 @@ public class Player extends Entity {
 	int accel;
 	int speedCnt;
 	String lastDir;
+	int max_speed = 8;
 	
 	public final int screenX;
 	public final int screenY;
@@ -152,8 +153,8 @@ public class Player extends Entity {
 		if(speedCnt <= 0) {
 			speedCnt = 0;
 		}
-		if(speedCnt >= 10) {
-			speedCnt = 10;
+		if(speedCnt >= max_speed) {
+			speedCnt = max_speed;
 		}
 	}
 	public void pickUpobject(int i) {
@@ -163,6 +164,7 @@ public class Player extends Entity {
 			
 			switch(objectName) {
 			case "Key":
+				gp.playSE(1);
 				hasKey++;
 				gp.obj[i] = null;
 				System.out.println("Key : " + hasKey);
@@ -170,6 +172,7 @@ public class Player extends Entity {
 			case "Door":
 				keyFlag += 1;
 				if(hasKey > 0) {
+					gp.playSE(3);
 					gp.obj[i] = null;
 					hasKey--;
 					keyFlag = 200;
@@ -178,6 +181,11 @@ public class Player extends Entity {
 					System.out.println("Key : " + hasKey);
 					keyFlag = keyFlag - 100 < 0 ? 0 : keyFlag - 100;
 				}
+				break;
+			case "Boots":
+				gp.playSE(2);
+				max_speed += 2;
+				gp.obj[i] = null;
 				break;
 			}
 		}
