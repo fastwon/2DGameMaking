@@ -1,6 +1,5 @@
 package entity;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -24,8 +23,7 @@ public class Player extends Entity {
 	public final int screenX;
 	public final int screenY;
 	
-	int hasKey = 0;
-	int keyFlag = 0;
+	public int hasKey = 0;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		
@@ -167,25 +165,28 @@ public class Player extends Entity {
 				gp.playSE(1);
 				hasKey++;
 				gp.obj[i] = null;
-				System.out.println("Key : " + hasKey);
+				gp.ui.showMessage("You got a key!");
 				break;
 			case "Door":
-				keyFlag += 1;
 				if(hasKey > 0) {
 					gp.playSE(3);
 					gp.obj[i] = null;
 					hasKey--;
-					keyFlag = 200;
-				}
-				if(keyFlag >= 100) {
-					System.out.println("Key : " + hasKey);
-					keyFlag = keyFlag - 100 < 0 ? 0 : keyFlag - 100;
+					gp.ui.showMessage("You opened the Door!");
+				} else {
+					gp.ui.showMessage("You need a Key!");
 				}
 				break;
 			case "Boots":
 				gp.playSE(2);
 				max_speed += 2;
 				gp.obj[i] = null;
+				gp.ui.showMessage("Speed Up!!!");
+				break;
+			case "Chest":
+				gp.ui.GameFinished = true;
+				gp.stopMusic();
+				gp.playSE(4);
 				break;
 			}
 		}
