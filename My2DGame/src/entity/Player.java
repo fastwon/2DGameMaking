@@ -52,6 +52,9 @@ public class Player extends Entity {
 		direction = "down";
 		lastDir = "down";
 		
+		// PlAYER STATUS
+		maxLife = 6;
+		life = maxLife;
 		
 	}
 	public void getPlayerImage() {
