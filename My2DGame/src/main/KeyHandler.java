@@ -108,6 +108,9 @@ public class KeyHandler implements KeyListener {
 				gp.gameState = gp.pauseState;
 				gp.stopMusic();
 			}
+			if(code == KeyEvent.VK_M) {
+				gp.stopMusic();
+			}
 			if(code == KeyEvent.VK_ENTER) {
 				enterPressed = true;
 			}
