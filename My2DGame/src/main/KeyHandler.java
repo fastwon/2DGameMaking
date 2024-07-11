@@ -195,6 +195,12 @@ public class KeyHandler implements KeyListener {
 		if(gp.ui.slotRow > 3) {
 			gp.ui.slotRow = 0;
 		}
+		
+		if(code == KeyEvent.VK_ENTER) {
+			gp.player.selectItem();
+		}
+		
+		
 	}
 
 	@Override
