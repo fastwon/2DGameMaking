@@ -244,13 +244,15 @@ public class Player extends Entity {
 			speedCnt = max_speed;
 		}
 		
-		if(gp.keyH.shotKeyPressed && !projectile.alive) {
+		if(gp.keyH.shotKeyPressed && !projectile.alive && shortAvailableCounter == 30) {
 			
 			// SET DEFALUT COORDINATES, DIRECTION AND USER
 			projectile.set(worldX, worldY, direction, true, this);
 			
 			// ADD IT TO THE LIST
 			gp.projectileList.add(projectile);
+			
+			shortAvailableCounter = 0;
 			
 			gp.playSE(10);
 		}
@@ -262,6 +264,9 @@ public class Player extends Entity {
 				invincible = false;
 				invincibleCounter = 0;
 			}
+		}
+		if(shortAvailableCounter < 30) {
+			shortAvailableCounter++;
 		}
 	}
 	public void attacking() {
@@ -291,7 +296,7 @@ public class Player extends Entity {
 			solidArea.height = attackArea.height;
 			// Check monster collision with the updated worldX, worldY and solidArea
 			int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-			damageMonster(monsterIndex);
+			damageMonster(monsterIndex, attack);
 			
 			// After checking collision restore the original data
 			worldX = currentWorldX;
@@ -350,7 +355,7 @@ public class Player extends Entity {
 			}
 		}
 	}
-	public void damageMonster(int i) {
+	public void damageMonster(int i, int attack) {
 		
 		if(i != 999) {
 			
