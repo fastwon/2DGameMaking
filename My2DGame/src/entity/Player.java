@@ -16,6 +16,7 @@ import main.KeyHandler;
 import main.UtilityTool;
 import object.OBJ_Fireball;
 import object.OBJ_Key;
+import object.OBJ_Rock;
 import object.OBJ_Shield_Wood;
 import object.OBJ_Sword_Normal;
 
@@ -71,6 +72,9 @@ public class Player extends Entity {
 		level = 1;
 		maxLife = 6;
 		life = maxLife;
+		maxMana = 4;
+		mana = maxMana;
+		ammo = 10;
 		strength = 1; // The more strength he has, the more damage he gives.
 		dexterity = 1; // The more dexterity he has, the less damage he receives.
 		exp = 0;
@@ -79,6 +83,7 @@ public class Player extends Entity {
 		currentWeapon = new OBJ_Sword_Normal(gp);
 		currentShield = new OBJ_Shield_Wood(gp);
 		projectile = new OBJ_Fireball(gp);
+//		projectile = new OBJ_Rock(gp);
 		attack = getAttack();	// The total attack value is decided by strength and weapon.
 		defense = getDefense();	// The total defense value is decided by dexterity and shield.
 	}
@@ -244,15 +249,19 @@ public class Player extends Entity {
 			speedCnt = max_speed;
 		}
 		
-		if(gp.keyH.shotKeyPressed && !projectile.alive && shortAvailableCounter == 30) {
+		if(gp.keyH.shotKeyPressed && !projectile.alive 
+				&& shotAvailableCounter == 30 && projectile.haveResource(this)) {
 			
 			// SET DEFALUT COORDINATES, DIRECTION AND USER
 			projectile.set(worldX, worldY, direction, true, this);
 			
+			// SUBTRACT THE COST (MANA, AMMO ETC.)
+			projectile.subtractResource(this);
+			
 			// ADD IT TO THE LIST
 			gp.projectileList.add(projectile);
 			
-			shortAvailableCounter = 0;
+			shotAvailableCounter = 0;
 			
 			gp.playSE(10);
 		}
@@ -265,8 +274,8 @@ public class Player extends Entity {
 				invincibleCounter = 0;
 			}
 		}
-		if(shortAvailableCounter < 30) {
-			shortAvailableCounter++;
+		if(shotAvailableCounter < 30) {
+			shotAvailableCounter++;
 		}
 	}
 	public void attacking() {
@@ -392,6 +401,8 @@ public class Player extends Entity {
 			nextLevelExp = nextLevelExp + level*level;
 			maxLife += 2;
 			life = maxLife;
+			maxMana++;
+			mana = maxMana;
 			strength++;
 			dexterity++;
 			attack = getAttack();

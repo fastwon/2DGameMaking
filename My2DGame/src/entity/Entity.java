@@ -41,7 +41,7 @@ public class Entity {
 	public int spriteCounter = 0;
 	public int actionLockCounter = 0;
 	public int invincibleCounter = 0;
-	public int shortAvailableCounter = 0;
+	public int shotAvailableCounter = 0;
 	int dyingCounter = 0;
 	int hpBarCounter = 0;
 
@@ -52,6 +52,7 @@ public class Entity {
 	public int life;
 	public int maxMana;
 	public int mana;
+	public int ammo;
 	public int level;
 	public int strength;
 	public int dexterity;
@@ -123,18 +124,7 @@ public class Entity {
 		boolean contactPlayer = gp.cChecker.checkPlayer(this);
 		// monster가 player를 건드렸을 경우
 		if(this.type == type_monster && contactPlayer) {
-			if(!gp.player.invincible) {
-				// we can give damage
-				gp.playSE(6);
-				
-				int damage = attack - gp.player.defense;
-				if(damage < 0) {
-					damage = 0;
-				}
-				gp.player.life -= damage;
-
-				gp.player.invincible = true;
-			}
+			damagePlayer(attack);
 		}
 		
 		// IF COLLISION IS FALSE, PLAYER CAN MOVE
@@ -174,8 +164,24 @@ public class Entity {
 				invincibleCounter = 0;
 			}
 		}
+		if(shotAvailableCounter < 30) {
+			shotAvailableCounter++;
+		}
 	}
-	
+	public void damagePlayer(int attack) {
+		if(!gp.player.invincible) {
+			// we can give damage
+			gp.playSE(6);
+			
+			int damage = attack - gp.player.defense;
+			if(damage < 0) {
+				damage = 0;
+			}
+			gp.player.life -= damage;
+
+			gp.player.invincible = true;
+		}
+	}
 	public void draw(Graphics2D g2) {
 		
 		BufferedImage image = null;

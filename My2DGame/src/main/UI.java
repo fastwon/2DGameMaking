@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import entity.Entity;
 import object.OBJ_Heart;
+import object.OBJ_ManaCrystal;
 
 public class UI {
 
@@ -20,7 +21,7 @@ public class UI {
 	Graphics2D g2;
 	Font arial_40, arial_80B;
 	Font purisaB;
-	BufferedImage heart_full, heart_half, heart_blank;
+	BufferedImage heart_full, heart_half, heart_blank, crystal_full, crystal_blank;
 	public boolean messageOn = false;
 //	public String message = "";
 //	int messageCounter = 0;
@@ -53,6 +54,9 @@ public class UI {
 		heart_full = heart.image;
 		heart_half = heart.image2;
 		heart_blank = heart.image3;
+		Entity crystal = new OBJ_ManaCrystal(gp);
+		crystal_full = crystal.image;
+		crystal_blank = crystal.image2;
 	}
 	public void addMessage(String text) {
 		
@@ -120,6 +124,27 @@ public class UI {
 			i++;
 			x += gp.tileSize;
 		}
+		
+		// DRAW MAX MANA
+		x = gp.tileSize/2;
+		y = gp.tileSize + gp.tileSize/2;
+		i = 0;
+		while(i < gp.player.maxMana) {
+			g2.drawImage(crystal_blank, x, y, null);
+			i++;
+			x += gp.tileSize;
+		}
+		
+		// DRAW CURRENT MANA
+		x = gp.tileSize/2;
+		y = gp.tileSize + gp.tileSize/2;
+		i = 0;
+		while(i < gp.player.mana) {
+			g2.drawImage(crystal_full, x, y, null);
+			i++;
+			x += gp.tileSize;
+		}
+		
 	}
 	public void drawMessage() {
 		
@@ -289,13 +314,15 @@ public class UI {
 		g2.setFont(g2.getFont().deriveFont(20F));
 		
 		int textX = frameX + 20;
-		int textY = frameY + gp.tileSize;
+		int textY = frameY + gp.tileSize - 10;
 		final int lineHeight = 35;
 		
 		// NAMES
 		g2.drawString("Level", textX, textY);
 		textY += lineHeight;
 		g2.drawString("Life", textX, textY);
+		textY += lineHeight;
+		g2.drawString("Mana", textX, textY);
 		textY += lineHeight;
 		g2.drawString("Strength", textX, textY);
 		textY += lineHeight;
@@ -319,7 +346,7 @@ public class UI {
 		// VALUES
 		int tailX = (frameX + frameWidth) - 30;
 		// Reset textY
-		textY = frameY + gp.tileSize;
+		textY = frameY + gp.tileSize - 10;
 		String value;
 		
 		value = String.valueOf(gp.player.level);
@@ -328,6 +355,11 @@ public class UI {
 		textY += lineHeight;
 		
 		value = String.valueOf(gp.player.life + "/" + gp.player.maxLife);
+		textX = getXforAlignToRigthText(value, tailX);
+		g2.drawString(value, textX, textY);
+		textY += lineHeight;
+		
+		value = String.valueOf(gp.player.mana + "/" + gp.player.maxMana);
 		textX = getXforAlignToRigthText(value, tailX);
 		g2.drawString(value, textX, textY);
 		textY += lineHeight;
