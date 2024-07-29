@@ -1,5 +1,9 @@
 package tile_interactive;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
 import entity.Entity;
 import main.GamePanel;
 
@@ -31,6 +35,19 @@ public class InteractiveTile extends Entity{
 				invincible = false;
 				invincibleCounter = 0;
 			}
+		}
+	}
+	public void draw(Graphics2D g2) {
+
+		int screenX = worldX - gp.player.worldX + gp.player.screenX;
+		int screenY = worldY - gp.player.worldY + gp.player.screenY;
+	
+		if(worldX > gp.player.worldX - gp.player.screenX - gp.tileSize &&
+			worldX < gp.player.worldX + gp.player.screenX + gp.tileSize &&
+			worldY > gp.player.worldY - gp.player.screenY - gp.tileSize &&
+			worldY < gp.player.worldY + gp.player.screenY + gp.tileSize) {
+			
+			g2.drawImage(down1, screenX, screenY, null);
 		}
 	}
 }
