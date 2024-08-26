@@ -591,11 +591,13 @@ public class UI {
 		int volumeWidth = 24 * gp.music.volumeScale;
 		g2.fillRect(textX, textY, volumeWidth, 24);
 
-		// SE
+		// SE VOLUME
 		textY += gp.tileSize;
 		g2.drawRect(textX, textY, 120, 24);
 		volumeWidth = 24 * gp.se.volumeScale;
 		g2.fillRect(textX, textY, volumeWidth, 24);
+		
+		gp.config.saveConfig();
 	}
 	public void options_fullScreenNotification(int frameX, int frameY) {
 		
@@ -641,11 +643,11 @@ public class UI {
 		textX = frameX + gp.tileSize*6;
 		textY = frameY + gp.tileSize*2;
 		g2.drawString("WASD", textX, textY); textY += gp.tileSize;
-		g2.drawString("ENTER", textX, textY); textY += gp.tileSize;
+		g2.drawString("Enter", textX, textY); textY += gp.tileSize;
 		g2.drawString("F", textX, textY); textY += gp.tileSize;
 		g2.drawString("C", textX, textY); textY += gp.tileSize;
 		g2.drawString("P", textX, textY); textY += gp.tileSize;
-		g2.drawString("ESC", textX, textY); textY += gp.tileSize;
+		g2.drawString("Esc", textX, textY); textY += gp.tileSize;
 		
 		// BACK
 		text = "Back";
