@@ -35,6 +35,8 @@ public class UI {
 	public int slotRow = 0;
 	int subState = 0;
 	
+	int gameOverCounter = 0;
+	
 	public UI(GamePanel gp) {
 		this.gp = gp;
 		
@@ -96,8 +98,13 @@ public class UI {
 			drawCharacterScreen();
 			drawInventory();
 		}
+		// OPTION STATE
 		if(gp.gameState == gp.optionsState) {
 			drawOptionsScreen();
+		}
+		// GAME OVER STATE
+		if(gp.gameState == gp.gameOverState) {
+			drawGameOverScreen();
 		}
 	}
 	public void drawPlayerLife() {
@@ -478,6 +485,56 @@ public class UI {
 			
 		}
 	}
+	
+	
+	public void drawGameOverScreen() {
+		
+		g2.setColor(new Color(0, 0, 0, 150));
+		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+		
+		int x;
+		int y;
+		String text;
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 80f));
+		
+		text = "Game Over";
+		// Shadow
+		g2.setColor(Color.black);
+		x = getXforCenteredText(text);
+		y = gp.tileSize*4;
+		g2.drawString(text, x, y);
+		// Main
+		g2.setColor(Color.white);
+		g2.drawString(text, x-4, y-4);
+		
+		gameOverCounter++;
+		
+		if(gameOverCounter>100) {
+			// Retry
+			g2.setFont(g2.getFont().deriveFont(40f));
+			text = "Retry";
+			x = getXforCenteredText(text);
+			y += gp.tileSize*4;
+			g2.drawString(text, x, y);
+			
+			if(commandNum == 0) {
+				g2.drawString(">", x-40, y);
+			}
+			
+			// Back to the title screen
+			text = "Quit";
+			x = getXforCenteredText(text);
+			y += gp.tileSize + 10;
+			g2.drawString(text, x, y);
+			
+			if(commandNum == 1) {
+				g2.drawString(">", x-40, y);
+			}
+			
+		}
+		
+		
+	}
 	public void drawOptionsScreen() {
 		
 		g2.setColor(Color.white);
@@ -700,7 +757,7 @@ public class UI {
 				subState = 0;
 				commandNum = 0;
 				gp.gameState = gp.titleState;
-				gp.stopMusic();
+				gp.restart();
 			}
 		}
 	}
