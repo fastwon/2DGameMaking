@@ -13,6 +13,7 @@ import java.util.Collections;
 
 import javax.swing.JPanel;
 
+import ai.PathFInder;
 import entity.Entity;
 import entity.Player;
 import tile.TileManager;
@@ -59,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public EventHandler eHandler = new EventHandler(this);
 	Config config = new Config(this);
 	Thread gameThread;
+	public PathFInder pFinder = new PathFInder(this);
 	
 	// ENTITY AND OBJECT
 	public Player player = new Player(this, keyH);

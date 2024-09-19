@@ -760,7 +760,7 @@ public class UI {
 		int textX = frameX + gp.tileSize;
 		int textY = frameY + gp.tileSize*3;
 		
-		currentDialogue = "Quit the game and \nreturn to the tileScreen?";
+		currentDialogue = "Quit the game and \nreturn to the titleScreen?";
 		
 		for(String line : currentDialogue.split("\n")) {
 			g2.drawString(line, textX, textY);
