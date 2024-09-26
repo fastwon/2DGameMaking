@@ -18,11 +18,13 @@ public class OBJ_Coin_Bronze extends Entity{
 		
 	}
 	
-	public void use(Entity entity) {
+	public boolean use(Entity entity) {
 		
 		gp.playSE(1);
 		gp.ui.addMessage("Coin +" + value);
 		entity.coin += value;
+		
+		return true;
 		
 	}
 
