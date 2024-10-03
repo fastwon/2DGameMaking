@@ -342,8 +342,7 @@ public class Player extends Entity {
 				// INVENTORY ITEMS
 				String text;
 				
-				if(inventory.size() != maxInventorySize) {
-					inventory.add(gp.obj[gp.currentMap][i]);
+				if(canObtainItem(gp.obj[gp.currentMap][i])) {
 					gp.playSE(1);
 					text = "Got a " + gp.obj[gp.currentMap][i].name + "!";
 				} else {
@@ -489,12 +488,54 @@ public class Player extends Entity {
 			if(selectedItem.type == type_consumable) {
 				
 				if(selectedItem.use(this))  {
-					inventory.remove(itemIndex);
+					selectedItem.amount--;
+					if(selectedItem.amount == 0) {
+						inventory.remove(itemIndex);
+					}
 				}
 			}
 		}
 	}
-	
+	public int searchItemInInventory(String itemName) {
+		
+		int itemIndex = 999;
+		
+		for(int i=0; i<inventory.size(); i++) {
+			if(inventory.get(i).name.equals(itemName)) {
+				itemIndex = i;
+				break;
+			}
+		}
+		return itemIndex;
+	}
+	public boolean canObtainItem(Entity item) {
+		
+		boolean canObtain = false;
+		
+		// CHECK STACKABLE
+		if(item.stackable) {
+			
+			int index = searchItemInInventory(item.name);
+			
+			if(index != 999) {
+				inventory.get(index).amount++;
+				canObtain = true;
+			} else { // New item so need to check vacancy
+				if(inventory.size() != maxInventorySize) {
+					inventory.add(item);
+					canObtain = true;
+				}
+			}
+		}
+		else { // Not stackable so check vacancy
+			if(inventory.size() != maxInventorySize) {
+				inventory.add(item);
+				canObtain = true;
+			}
+		}
+		
+		return canObtain;
+	}
 	
 	public void draw(Graphics2D g2) {
 		
