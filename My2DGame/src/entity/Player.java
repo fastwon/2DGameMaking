@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.JobAttributes.DefaultSelectionType;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class Player extends Entity {
 	public final int screenX;
 	public final int screenY;
 	public boolean attackCanceled = false;
+	public boolean lightUpdated = false;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		
@@ -484,6 +486,16 @@ public class Player extends Entity {
 				
 				currentShield = selectedItem;
 				defense = getDefense();
+			}
+			if(selectedItem.type == type_light) {
+				
+				if(currentLight == selectedItem) {
+					currentLight = null;
+				}
+				else {
+					currentLight = selectedItem;
+				}
+				lightUpdated = true;
 			}
 			if(selectedItem.type == type_consumable) {
 				
