@@ -4,10 +4,6 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RadialGradientPaint;
-import java.awt.Shape;
-import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import main.GamePanel;
@@ -16,15 +12,18 @@ public class Lighting {
 	
 	GamePanel gp;
 	BufferedImage darknessFilter;
-	int dayCounter;
-	float filterAlpha = 0f;
+	public int dayCounter;
+	public float filterAlpha = 0f;
 	
 	// Day State
-	final int day = 0;
-	final int dusk = 1;
-	final int night = 2;
-	final int dawn = 3;
-	int dayState = day;
+	public final int day = 0;
+	public final int dusk = 1;
+	public final int night = 2;
+	public final int dawn = 3;
+	public int dayState = day;
+	
+	public int radius;
+	public final int minRadius = 75;
 	
 	public Lighting(GamePanel gp) {
 		this.gp = gp;
@@ -64,14 +63,14 @@ public class Lighting {
 		RadialGradientPaint gPaint = null;
 		
 		// Create a gradation paint settings for the light circle
-		if(gp.player.currentLight == null) {
-
-			gPaint = new RadialGradientPaint(centerX, centerY, 75, fraction, color);
+		if(gp.gameState == gp.sleepState) {
+			radius = 1;
+		} else if(gp.player.currentLight == null) {
+			radius = minRadius;
+		}else {
+			radius = gp.player.currentLight.lightRadius;
 		}
-		else {
-			
-			gPaint = new RadialGradientPaint(centerX, centerY, gp.player.currentLight.lightRadius, fraction, color);
-		}
+		gPaint = new RadialGradientPaint(centerX, centerY, radius, fraction, color);
 
 		// Set the gradient data on g2
 		g2.setPaint(gPaint);
