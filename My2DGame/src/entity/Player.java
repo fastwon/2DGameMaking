@@ -1,23 +1,13 @@
 package entity;
 
 import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.JobAttributes.DefaultSelectionType;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.KeyHandler;
-import main.UtilityTool;
 import object.OBJ_Fireball;
-import object.OBJ_Key;
-import object.OBJ_Rock;
 import object.OBJ_Shield_Wood;
 import object.OBJ_Sword_Normal;
 
@@ -57,10 +47,8 @@ public class Player extends Entity {
 	}
 	public void setDefaultValues() {
 		
-		worldX = gp.tileSize * 62;
-		worldY = gp.tileSize * 39;
-//		worldX = gp.tileSize * 23;
-//		worldY = gp.tileSize * 21;
+		worldX = gp.tileSize * 23;
+		worldY = gp.tileSize * 21;
 //		worldX = gp.tileSize * 12;
 //		worldY = gp.tileSize * 12;
 		

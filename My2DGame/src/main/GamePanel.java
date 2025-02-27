@@ -17,6 +17,7 @@ import ai.PathFInder;
 import entity.Entity;
 import entity.Player;
 import environment.EnvironmentManager;
+import tile.Map;
 import tile.TileManager;
 import tile_interactive.InteractiveTile;
 
@@ -33,8 +34,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 	
 	// WORLD SETTINGS
-	public int maxWorldCol;
-	public int maxWorldRow;
+	public final int maxWorldCol = 50;
+	public final int maxWorldRow = 50;
 //	public final int worldWidth = tileSize * maxWorldCol;
 //	public final int worldHeight = tileSize * maxWorldRow;
 	public final int maxMap = 10;
@@ -63,6 +64,7 @@ public class GamePanel extends JPanel implements Runnable{
 	Thread gameThread;
 	EnvironmentManager eManager = new EnvironmentManager(this);
 	public PathFInder pFinder = new PathFInder(this);
+	Map map = new Map(this);
 	
 	// ENTITY AND OBJECT
 	public Player player = new Player(this, keyH);
@@ -87,6 +89,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int transitionState = 7;
 	public final int tradeState = 8;
 	public final int sleepState = 9;
+	public final int mapState = 10;
 	
 	public GamePanel() {
 		
@@ -284,6 +287,10 @@ public class GamePanel extends JPanel implements Runnable{
 		// TITLE SCREEN
 		if(gameState == titleState) {
 			ui.draw(g2);
+		}
+		// MAP SCREEN
+		else if (gameState == mapState) {
+			map.drawFullMapScreen(g2);
 		}
 		// OTHER
 		else {
