@@ -20,7 +20,8 @@ public class UI {
 
 	GamePanel gp;
 	Graphics2D g2;
-	Font arial_40, arial_80B;
+	public Font arial_40;
+	Font arial_80B;
 	Font purisaB;
 	BufferedImage heart_full, heart_half, heart_blank, crystal_full, crystal_blank, coin;
 	public boolean messageOn = false;
