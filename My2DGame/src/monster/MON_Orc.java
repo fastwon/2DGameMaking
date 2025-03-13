@@ -35,8 +35,11 @@ public class MON_Orc extends Entity {
 		solidAreaDefaultY = solidArea.y;
 		attackArea.width = 40;
 		attackArea.height = 40;
+		motion1_duration = 40;
+		motion2_duration = 85;
 		
 		getImage();
+		getAttackImage();
 	}
 	public void getImage() {
 		
@@ -51,13 +54,14 @@ public class MON_Orc extends Entity {
 	}
 	public void getAttackImage() {
 		
-		attackUp2 = setup("/player/orc_attack_up_2", gp.tileSize, gp.tileSize*2);
-		attackDown1 = setup("/player/orc_attack_down_1", gp.tileSize, gp.tileSize*2);
-		attackDown2 = setup("/player/orc_attack_down_2", gp.tileSize, gp.tileSize*2);
-		attackLeft1 = setup("/player/orc_attack_left_1", gp.tileSize*2, gp.tileSize);
-		attackLeft2 = setup("/player/orc_attack_left_2", gp.tileSize*2, gp.tileSize);
-		attackRight1 = setup("/player/orc_attack_right_1", gp.tileSize*2, gp.tileSize);
-		attackRight2 = setup("/player/orc_attack_right_2", gp.tileSize*2, gp.tileSize);
+		attackUp1 = setup("/monster/orc_attack_up_1", gp.tileSize, gp.tileSize*2);
+		attackUp2 = setup("/monster/orc_attack_up_2", gp.tileSize, gp.tileSize*2);
+		attackDown1 = setup("/monster/orc_attack_down_1", gp.tileSize, gp.tileSize*2);
+		attackDown2 = setup("/monster/orc_attack_down_2", gp.tileSize, gp.tileSize*2);
+		attackLeft1 = setup("/monster/orc_attack_left_1", gp.tileSize*2, gp.tileSize);
+		attackLeft2 = setup("/monster/orc_attack_left_2", gp.tileSize*2, gp.tileSize);
+		attackRight1 = setup("/monster/orc_attack_right_1", gp.tileSize*2, gp.tileSize);
+		attackRight2 = setup("/monster/orc_attack_right_2", gp.tileSize*2, gp.tileSize);
 	}
 	public void setAction() {
 		
@@ -76,6 +80,11 @@ public class MON_Orc extends Entity {
 			
 			// get a random direction
 			getRandomDirection();
+		}
+		
+		// check if it attacks
+		if(!attacking) {
+			checkAttackOrNot(30, gp.tileSize*4, gp.tileSize);
 		}
 	}
 	public void damageReaction() {

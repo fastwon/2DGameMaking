@@ -99,6 +99,9 @@ public class Player extends Entity {
 	}
 	public int getAttack() {
 		attackArea = currentWeapon.attackArea;
+		motion1_duration = currentWeapon.motion1_duration;
+		motion2_duration = currentWeapon.motion2_duration;
+		
 		return attack = strength * currentWeapon.attackValue;
 	}
 	public int getDefense() {
@@ -277,53 +280,7 @@ public class Player extends Entity {
 			gp.playSE(12);
 		}
 	}
-	public void attacking() {
-		spriteCounter++;
-		
-		if(spriteCounter <= 5) {
-			spriteNum = 1;
-		}
-		if(spriteCounter >5 && spriteCounter <=25) {
-			spriteNum = 2;
-			
-			// Save the current worldX, worldY, solidArea
-			int currentWorldX = worldX;
-			int currentWorldY = worldY;
-			int solidAreaWidth = solidArea.width;
-			int solidAreaHeigth = solidArea.height;
-			
-			// Adjust player's worldX/Y for the attackArea
-			switch (direction) {
-			case "up": worldY -= attackArea.height; break;
-			case "down": worldY += attackArea.height; break;
-			case "left": worldX -= attackArea.width; break;
-			case "right": worldX += attackArea.width; break;
-			}
-			// attackArea becomes solidArea
-			solidArea.width = attackArea.width;
-			solidArea.height = attackArea.height;
-			// Check monster collision with the updated worldX, worldY and solidArea
-			int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-			damageMonster(monsterIndex, this, attack, currentWeapon.knockBackPower);
-			
-			int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
-			damageInteractiveTile(iTileIndex);
-			
-			int projectileIndex = gp.cChecker.checkEntity(this, gp.projectile);
-			damageProjectile(projectileIndex);
-			
-			// After checking collision restore the original data
-			worldX = currentWorldX;
-			worldY = currentWorldY;
-			solidArea.width = solidAreaWidth;
-			solidArea.height = solidAreaHeigth;
-		}
-		if(spriteCounter > 25) {
-			spriteNum = 1;
-			spriteCounter = 0;
-			attacking = false;
-		}
-	}
+
 	public void pickUpobject(int i) {
 		
 		if(i != 999) {
@@ -548,10 +505,10 @@ public class Player extends Entity {
 		
 //		g2.setColor(Color.white);
 //		g2.fillRect(x, y, gp.tileSize, gp.tileSize);
+		BufferedImage image = null;
+
 		int tempScreenX = screenX;
 		int tempScreenY = screenY;
-		
-		BufferedImage image = null;
 		
 		switch (direction) {
 		case "up":
