@@ -58,7 +58,6 @@ public class Player extends Entity {
 		speed = defaultSpeed;
 		direction = "down";
 		
-		
 		// PlAYER STATUS
 		level = 1;
 		maxLife = 6;
@@ -83,6 +82,12 @@ public class Player extends Entity {
 		worldX = gp.tileSize * 23;
 		worldY = gp.tileSize * 21;
 		direction = "down";
+		
+		invincible = false;
+		transparent = false;
+		knockBack = false;
+		speed = defaultSpeed;
+		
 	}
 	public void restoreLifeAndMana() {
 		
@@ -164,11 +169,42 @@ public class Player extends Entity {
 	
 	public void update() {
 		
-		if(attacking) {
+		if(knockBack) {
+			
+			collisionOn = false;
+			gp.cChecker.checkTile(this);
+			gp.cChecker.checkObject(this, true);
+			gp.cChecker.checkEntity(this, gp.npc);
+			gp.cChecker.checkEntity(this, gp.monster);
+			gp.cChecker.checkEntity(this, gp.iTile);
+			
+			if(collisionOn) {
+				knockBackCounter = 0;
+				knockBack = false;
+				speed = defaultSpeed;
+			}
+			else if(collisionOn == false) {
+				switch(knockBackDirection) {
+				case "up": worldY -= speed; break;
+				case "down": worldY += speed; break;
+				case "left": worldX -= speed; break;
+				case "right": worldX += speed; break;
+				}
+			}
+			knockBackCounter++;
+			if(knockBackCounter == 10) {
+				knockBackCounter = 0;
+				knockBack = false;
+				speed = defaultSpeed;
+			}
+			
+		}
+		else if(attacking) {
 			attacking();
 		} 
 		else if (keyH.spacePressed) {
 			guarding = true;
+			guardCounter++;
 		}
 		else if(keyH.upPressed == true || keyH.downPressed == true || 
 				keyH.leftPressed == true || keyH.rightPressed == true || keyH.enterPressed == true) {
@@ -202,7 +238,7 @@ public class Player extends Entity {
 			contactMonster(monsterIndex);
 			
 			// CHECK INTERACTIVE TILE COLLISION
-			int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile); 
+			gp.cChecker.checkEntity(this, gp.iTile); 
 			
 			// CHECK EVENT
 			gp.eHandler.checkEvent();
@@ -235,6 +271,7 @@ public class Player extends Entity {
 			attackCanceled = false;
 			gp.keyH.enterPressed = false;
 			guarding = false;
+			guardCounter = 0;
 			
 			spriteCounter++;
 			if(spriteCounter > 12) {
@@ -254,6 +291,7 @@ public class Player extends Entity {
 //				standCounter = 0;
 //			}
 			guarding = false;
+			guardCounter = 0;
 		}
 		
 		if(gp.keyH.shotKeyPressed && !projectile.alive 
@@ -374,6 +412,10 @@ public class Player extends Entity {
 				
 				if(knockBackPower > 0) {
 					setKnockBack(gp.monster[gp.currentMap][i], attacker, knockBackPower);
+				}
+				
+				if(gp.monster[gp.currentMap][i].offBalance) {
+					attack *= 3;
 				}
 				
 				int damage = attack - gp.monster[gp.currentMap][i].defense;
