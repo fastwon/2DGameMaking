@@ -499,8 +499,6 @@ public class Entity {
 					gp.playSE(15);
 				}
 			} else {
-				// Not guarding
-				gp.playSE(6);
 				if(damage < 1) {
 					damage = 1;
 				}
@@ -735,10 +733,10 @@ public class Entity {
 		int nextWorldY = user.getTopY();
 		
 		switch(user.direction) {
-		case "up": nextWorldY = user.getTopY() - gp.player.speed; break;
-		case "down": nextWorldY = user.getBottomY() + gp.player.speed; break;
-		case "left": nextWorldX = user.getLeftX() - gp.player.speed; break;
-		case "right": nextWorldX = user.getRightX() + gp.player.speed; break;
+		case "up": nextWorldY = user.getTopY() - 1; break;
+		case "down": nextWorldY = user.getBottomY() + 1; break;
+		case "left": nextWorldX = user.getLeftX() - 1; break;
+		case "right": nextWorldX = user.getRightX() + 1; break;
 		}
 		
 		int col = nextWorldX/gp.tileSize;

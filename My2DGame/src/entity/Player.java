@@ -41,7 +41,10 @@ public class Player extends Entity {
 //		attackArea.height = 36;
 		
 		setDefaultValues();
-
+		getImage();
+		getAttackImage();
+		getGuardImage();
+		setItems();
 	}
 	public void setDefaultValues() {
 		
@@ -69,16 +72,10 @@ public class Player extends Entity {
 		coin = 0;
 		currentWeapon = new OBJ_Sword_Normal(gp);
 		currentShield = new OBJ_Shield_Wood(gp);
-		currentLight = null;
 		projectile = new OBJ_Fireball(gp);
 //		projectile = new OBJ_Rock(gp);
 		attack = getAttack();	// The total attack value is decided by strength and weapon.
 		defense = getDefense();	// The total defense value is decided by dexterity and shield.
-		
-		getImage();
-		getAttackImage();
-		getGuardImage();
-		setItems();
 	}
 	public void setDefaultPositions() {
 		
@@ -86,19 +83,17 @@ public class Player extends Entity {
 		worldY = gp.tileSize * 21;
 		direction = "down";
 		
+		invincible = false;
+		transparent = false;
+		knockBack = false;
 		speed = defaultSpeed;
 		
 	}
-	public void restoreStatus() {
+	public void restoreLifeAndMana() {
 		
 		life = maxLife;
 		mana = maxMana;
 		invincible = false;
-		transparent = false;
-		attacking = false;
-		guarding = false;
-		knockBack = false;
-		lightUpdated = true;
 	}
 	
 	
