@@ -43,7 +43,7 @@ public class NPC_Merchant extends Entity{
 		right2 = setup("/npc/merchant_down_2", gp.tileSize, gp.tileSize);
 	}
 	public void setDialogue() {
-		dialogues[0] = "He he, so you found me.\nI have some good stuff.\nDo you want to trade?";
+		dialogues[0][0] = "He he, so you found me.\nI have some good stuff.\nDo you want to trade?";
 	}
 	public void setItems() {
 		
