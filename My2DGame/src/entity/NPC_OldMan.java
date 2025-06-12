@@ -21,6 +21,8 @@ public class NPC_OldMan extends Entity{
 		solidArea.width = 32;
 		solidArea.height = 32;
 		
+		dialogueSet = -1;
+		
 		getImage();
 		setDialogue();
 	}
@@ -92,6 +94,18 @@ public class NPC_OldMan extends Entity{
 		
 		facePlayer();
 		startDialogue(this, dialogueSet);
+		
+		dialogueSet++;
+		
+		if(dialogues[dialogueSet][0] == null) {
+			// 처음 대사로 돌아감
+			dialogueSet = 0;
+			// 마지막 대사 반복
+//			dialogueSet--;
+		}
+		
+		
+		
 		
 //		onPath = true;
 	}

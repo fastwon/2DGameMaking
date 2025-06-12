@@ -18,6 +18,7 @@ public class OBJ_Key extends Entity{
 		price = 100;
 		stackable = true;
 		
+		setDialogue();
 	}
 	public void setDialogue() {
 		

@@ -27,6 +27,7 @@ public class OBJ_Chest extends Entity{
 	}
 	public void setLoot(Entity loot) {
 		this.loot = loot;
+		
 		setDialogue();
 	}
 	public void setDialogue() {

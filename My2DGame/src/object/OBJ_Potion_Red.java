@@ -19,6 +19,8 @@ public class OBJ_Potion_Red extends Entity {
 		description = "[" + name + "]\nHeals your life by " + value + ".";
 		price = 25;
 		stackable = true;
+		
+		setDialogue();
 	}
 	public void setDialogue() {
 		
