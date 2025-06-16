@@ -582,7 +582,6 @@ public class UI {
 					g2.drawString(line, textX, textY);
 					textY += 32;
 				}
-				
 			}
 		}
 	}
