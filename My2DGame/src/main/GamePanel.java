@@ -35,8 +35,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 	
 	// WORLD SETTINGS
-	public final int maxWorldCol = 50;
-	public final int maxWorldRow = 50;
+	public int maxWorldCol = 50;
+	public int maxWorldRow = 50;
 //	public final int worldWidth = tileSize * maxWorldCol;
 //	public final int worldHeight = tileSize * maxWorldRow;
 	public final int maxMap = 10;
@@ -94,6 +94,13 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int sleepState = 9;
 	public final int mapState = 10;
 	
+	// AREA
+	public int currentArea;
+	public int nextArea;
+	public final int outside = 50;
+	public final int indoor = 51;
+	public final int dungeon = 52;
+	
 	public GamePanel() {
 		
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -113,6 +120,7 @@ public class GamePanel extends JPanel implements Runnable{
 		//playMusic(0);
 		//stopMusic();
 		gameState = titleState;
+		currentArea = outside;
 		
 		tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
 		g2 = (Graphics2D) tempScreen.getGraphics();
@@ -404,7 +412,10 @@ public class GamePanel extends JPanel implements Runnable{
 		se.setFile(i);
 		se.play();
 	}
-	
+	public void changeArea() {
+		
+		currentArea = nextArea;
+	}
 	
 }
 
