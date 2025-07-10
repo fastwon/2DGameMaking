@@ -69,6 +69,13 @@ public class CollsionChecker {
 		
 		int index = 999;
 		
+		// Use a temporal direction when it's being knockbakced
+		String direction = entity.direction;
+		if(entity.knockBack) {
+			direction = entity.knockBackDirection;
+		}
+		
+		
 		for(int i=0; i<gp.obj[gp.currentMap].length; i++) {
 			
 			if(gp.obj[gp.currentMap][i] != null) {
@@ -81,7 +88,7 @@ public class CollsionChecker {
 				gp.obj[gp.currentMap][i].solidArea.x= gp.obj[gp.currentMap][i].worldX + gp.obj[gp.currentMap][i].solidArea.x;
 				gp.obj[gp.currentMap][i].solidArea.y = gp.obj[gp.currentMap][i].worldY + gp.obj[gp.currentMap][i].solidArea.y;
 				
-				switch(entity.direction) {
+				switch(direction) {
 				case "up": entity.solidArea.y -= entity.speed; break;
 				case "down": entity.solidArea.y += entity.speed; break;
 				case "left": entity.solidArea.x -= entity.speed; break;

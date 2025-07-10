@@ -26,16 +26,16 @@ public class OBJ_Chest extends Entity{
 		solidAreaDefaultX = solidArea.x;
 		solidAreaDefaultY = solidArea.y;
 		
-		setDialogue();
 	}
 	public void setLoot(Entity loot) {
 		this.loot = loot;
+		
+		setDialogue();
 	}
 	public void setDialogue() {
-		String lootName = loot == null ? "" : loot.name;
 		
-		dialogues[0][0] = "You open the chest and find a " + lootName + "!\n...But you cannot carry any more!";
-		dialogues[1][0] = "You open the chest and find a " + lootName + "!\nYou obtain the " + lootName + "!";
+		dialogues[0][0] = "You open the chest and find a " + loot.name + "!\n...But you cannot carry any more!";
+		dialogues[1][0] = "You open the chest and find a " + loot.name + "!\nYou obtain the " + loot.name + "!";
 		dialogues[2][0] = "It's empty";
 	}
 	
