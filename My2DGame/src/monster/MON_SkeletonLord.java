@@ -29,6 +29,7 @@ public class MON_SkeletonLord extends Entity {
 		defense = 2;
 		exp = 50;
 		knockBackPower = 5;
+		sleep = true;
 		
 		int size = gp.tileSize*5;
 		solidArea.x = 48;
@@ -94,6 +95,12 @@ public class MON_SkeletonLord extends Entity {
 			attackRight1 = setup("/monster/skeletonlord_phase2_attack_right_1", gp.tileSize*i*2, gp.tileSize*i);
 			attackRight2 = setup("/monster/skeletonlord_phase2_attack_right_2", gp.tileSize*i*2, gp.tileSize*i);
 		}
+	}
+	public void setDialogue() {
+		
+		dialogues[0][0] = "No one can steal my treasure!";
+		dialogues[0][1] = "You will die here!";
+		dialogues[0][2] = "WELCOME TO YOUR DOOM!";
 	}
 	public void setAction() {
 		

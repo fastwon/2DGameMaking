@@ -46,8 +46,11 @@ public class Player extends Entity {
 	}
 	public void setDefaultValues() {
 		
-		worldX = gp.tileSize * 23;
-		worldY = gp.tileSize * 21;
+		gp.currentMap = 3;
+		worldX = gp.tileSize * 25;
+		worldY = gp.tileSize * 35;
+//		worldX = gp.tileSize * 23;
+//		worldY = gp.tileSize * 21;
 //		worldX = gp.tileSize * 12;
 //		worldY = gp.tileSize * 12;
 		
@@ -681,8 +684,9 @@ public class Player extends Entity {
 		if(transparent) {
 			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
 		}
-		
-		g2.drawImage(image, tempScreenX, tempScreenY, null);
+		if(drawing) {
+			g2.drawImage(image, tempScreenX, tempScreenY, null);
+		}
 		
 		// Reset alpha
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
