@@ -41,7 +41,7 @@ public class KeyHandler implements KeyListener {
 		}
 		
 		// DIALOGUE STATE
-		else if(gp.gameState == gp.dialogueState) {
+		else if(gp.gameState == gp.dialogueState || gp.gameState == gp.cutsceneState) {
 			dialogueState(code);
 		}
 		
@@ -90,12 +90,30 @@ public class KeyHandler implements KeyListener {
 				if(gp.ui.commandNum == 0) {
 //					gp.ui.titleScreenState = 1;
 					gp.gameState = gp.playState;
-					gp.playMusic(0);
+
+					if(gp.currentArea == gp.outside) {
+						gp.playMusic(0);
+					}
+					if(gp.currentArea == gp.indoor) {
+						gp.playMusic(18);
+					}
+					if(gp.currentArea == gp.dungeon) {
+						gp.playMusic(19);
+					}
 				}
 				if(gp.ui.commandNum == 1) {
 					gp.saveLoad.load();
 					gp.gameState = gp.playState;
-					gp.playMusic(0);
+
+					if(gp.currentArea == gp.outside) {
+						gp.playMusic(0);
+					}
+					if(gp.currentArea == gp.indoor) {
+						gp.playMusic(18);
+					}
+					if(gp.currentArea == gp.dungeon) {
+						gp.playMusic(19);
+					}
 				}
 				if(gp.ui.commandNum == 2) {
 					System.exit(0);
