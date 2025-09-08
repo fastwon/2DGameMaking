@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 
 import entity.PlayerDummy;
 import monster.MON_SkeletonLord;
+import object.OBJ_BlueHeart;
 import object.OBJ_Door_iron;
 
 public class CutsceneManager {
@@ -12,10 +13,14 @@ public class CutsceneManager {
 	Graphics2D g2;
 	public int sceneNum;
 	public int scenePhase;
-	
+	int counter = 0;
+	float alpha = 0f;
+	int y;
+
 	// Scene Number
 	public final int NA = 0;
 	public final int skeletonLord = 1;
+	public final int ending = 2;
 	
 	public CutsceneManager(GamePanel gp) {
 		this.gp = gp;
@@ -25,6 +30,7 @@ public class CutsceneManager {
 		
 		switch(sceneNum) {
 		case skeletonLord: scene_skeletonLord(); break;
+		case ending: scene_ending(); break;
 		}
 	}
 	public void scene_skeletonLord() {
@@ -119,5 +125,29 @@ public class CutsceneManager {
 			gp.stopMusic();
 			gp.playMusic(22);
 		}
+	}
+	public void scene_ending() {
+		
+		if(scenePhase == 0) {
+			
+			gp.stopMusic();
+			gp.ui.npc = new OBJ_BlueHeart(gp);
+			scenePhase++;
+		}
+		if(scenePhase == 1) {
+			
+			// Display dialogues
+			gp.ui.drawDialogueScreen();
+		}
+		if(scenePhase == 2) {
+			
+			// Play the fanfare
+			gp.playSE(4);;
+			scenePhase++;
+		}
+		if(scenePhase == 3) {
+			
+		}
+		
 	}
 }

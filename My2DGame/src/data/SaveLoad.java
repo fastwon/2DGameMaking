@@ -9,9 +9,11 @@ import java.io.ObjectOutputStream;
 import entity.Entity;
 import main.GamePanel;
 import object.OBJ_Axe;
+import object.OBJ_BlueHeart;
 import object.OBJ_Boots;
 import object.OBJ_Chest;
 import object.OBJ_Door;
+import object.OBJ_Door_iron;
 import object.OBJ_Key;
 import object.OBJ_Lantern;
 import object.OBJ_Potion_Red;
@@ -146,6 +148,22 @@ public class SaveLoad {
 				}
 				
 			}
+			
+			// add someting...
+			gp.currentArea = gp.dungeon;
+			gp.currentMap = 3;
+			gp.player.worldX = gp.tileSize * 25;
+			gp.player.worldY = gp.tileSize * 35;
+			
+			int mapNum = 3;
+			
+			gp.obj[mapNum][0] = new OBJ_Door_iron(gp);
+			gp.obj[mapNum][0].worldX = gp.tileSize * 25;
+			gp.obj[mapNum][0].worldY = gp.tileSize * 15;
+			
+			gp.obj[mapNum][1] = new OBJ_BlueHeart(gp);
+			gp.obj[mapNum][1].worldX = gp.tileSize*25;
+			gp.obj[mapNum][1].worldY = gp.tileSize*8;
 		}
 		catch(Exception e) {
 			System.out.println("Load Exception!");

@@ -125,8 +125,7 @@ public class GamePanel extends JPanel implements Runnable{
 		//playMusic(0);
 		//stopMusic();
 		gameState = titleState;
-		//currentArea = outside;
-		currentArea = dungeon;
+		currentArea = outside;
 		
 		tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
 		g2 = (Graphics2D) tempScreen.getGraphics();
@@ -138,8 +137,7 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	public void resetGame(boolean restart) {
 		
-//		currentArea = outside;
-		currentArea = dungeon;
+		currentArea = outside;
 		removeTempEntity();
 		bossBattleOn = false;
 		ui.message.clear();
