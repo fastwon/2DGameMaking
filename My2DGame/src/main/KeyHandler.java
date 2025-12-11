@@ -213,8 +213,10 @@ public class KeyHandler implements KeyListener {
 		}
 		if(code == KeyEvent.VK_R) {
 			switch(gp.currentMap) {
-			case 0: gp.tileM.loadMap("/maps/worldV3.txt", 0); break;
-			case 1: gp.tileM.loadMap("/maps/interior01.txt", 1); break;
+			case 0: gp.tileM.loadMap("/maps/worldmap.txt", 0); break;
+			case 1: gp.tileM.loadMap("/maps/indoor01.txt", 1); break;
+			case 2: gp.tileM.loadMap("/maps/dungeon01.txt", 1); break;
+			case 3: gp.tileM.loadMap("/maps/dungeon02.txt", 1); break;
 			}
 		}
 		if(code == KeyEvent.VK_G) {
