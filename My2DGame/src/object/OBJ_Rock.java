@@ -35,16 +35,16 @@ public class OBJ_Rock extends Projectile{
 		right1 = setup("/projectile/rock_down_1",gp.tileSize,gp.tileSize);
 		right2 = setup("/projectile/rock_down_1",gp.tileSize,gp.tileSize);
 	}
-	public boolean haveResource(Entity user) {
-		boolean haveResource = false;
-		if(user.ammo >= useCost) {
-			haveResource = true;
-		}
-		return haveResource;
-	}
-	public void subtractResource(Entity user) {
-		user.ammo -= useCost;
-	}
+//	public boolean haveResource(Entity user) {
+//		boolean haveResource = false;
+//		if(user.ammo >= useCost) {
+//			haveResource = true;
+//		}
+//		return haveResource;
+//	}
+//	public void subtractResource(Entity user) {
+//		user.ammo -= useCost;
+//	}
 	public Color getParticleColor() {
 		Color color = new Color(40, 50, 0);
 		return color;
