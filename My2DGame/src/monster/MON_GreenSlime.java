@@ -78,7 +78,7 @@ public class MON_GreenSlime extends Entity{
 	}
 	public void checkDrop() {
 		
-		// CAT A DIE
+		// CAST A DIE
 		int i = new Random().nextInt(100)+1;
 		
 		// SET THE MONSTER DROP
