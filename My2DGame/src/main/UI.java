@@ -868,6 +868,7 @@ public class UI {
 		textY += gp.tileSize;
 		g2.drawString("Move", textX, textY); textY += gp.tileSize;
 		g2.drawString("Confirm/Attack", textX, textY); textY += gp.tileSize;
+		g2.drawString("Defense", textX, textY); textY += gp.tileSize;
 		g2.drawString("Shoot/Cast", textX, textY); textY += gp.tileSize;
 		g2.drawString("Character Screen", textX, textY); textY += gp.tileSize;
 		g2.drawString("Pause", textX, textY); textY += gp.tileSize;
@@ -877,6 +878,7 @@ public class UI {
 		textY = frameY + gp.tileSize*2;
 		g2.drawString("WASD", textX, textY); textY += gp.tileSize;
 		g2.drawString("Enter", textX, textY); textY += gp.tileSize;
+		g2.drawString("Space", textX, textY); textY += gp.tileSize;
 		g2.drawString("F", textX, textY); textY += gp.tileSize;
 		g2.drawString("C", textX, textY); textY += gp.tileSize;
 		g2.drawString("P", textX, textY); textY += gp.tileSize;
@@ -885,7 +887,7 @@ public class UI {
 		// BACK
 		text = "Back";
 		textX = getXforCenteredText(text);
-		textY += gp.tileSize;
+//		textY += gp.tileSize;
 		g2.drawString(text, textX, textY);
 		
 		if(commandNum == 0) {
